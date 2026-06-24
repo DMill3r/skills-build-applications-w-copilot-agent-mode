@@ -18,7 +18,7 @@ export default function Users() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`$-8000.app.github.dev/api/users`);
+      const response = await fetch(`${getApiBaseUrl()}/api/users`);
       if (!response.ok) throw new Error('Failed to fetch users');
       const data = await response.json();
       // Handle both array and paginated responses
