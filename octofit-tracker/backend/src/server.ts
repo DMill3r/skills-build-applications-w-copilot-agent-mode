@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import { connectDatabase } from './config/database';
-import { PORT, getBaseUrl } from './config/environment';
+import { PORT, getBaseUrl, NODE_ENV } from './config/environment';
 import { errorHandler } from './middleware/errorHandler';
 import userRoutes from './routes/userRoutes';
 import activityRoutes from './routes/activityRoutes';
@@ -30,6 +30,16 @@ app.get('/api/health', (req: Request, res: Response) => {
   res.json({
     status: 'ok',
     message: 'OctoFit Tracker API is running',
+    baseUrl: getBaseUrl(),
+  });
+});
+
+// Environment check
+app.get('/api/env', (req: Request, res: Response) => {
+  res.json({
+    environment: NODE_ENV,
+    codespaceName: process.env.CODESPACE_NAME || null,
+    apiPort: Number(PORT),
     baseUrl: getBaseUrl(),
   });
 });
