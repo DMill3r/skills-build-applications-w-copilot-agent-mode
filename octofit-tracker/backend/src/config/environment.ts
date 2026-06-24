@@ -1,9 +1,9 @@
 export const getBaseUrl = (): string => {
   const codespaceName = process.env.CODESPACE_NAME;
-  const baseUrl = codespaceName
-    ? `https://${codespaceName}-8000.app.github.dev`
-    : 'http://localhost:8000';
-  return baseUrl;
+  if (codespaceName && codespaceName.trim().length > 0) {
+    return `https://${codespaceName}-8000.app.github.dev`;
+  }
+  return 'http://localhost:8000';
 };
 
 export const PORT = process.env.PORT || 8000;
