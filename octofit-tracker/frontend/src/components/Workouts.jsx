@@ -21,7 +21,7 @@ export default function Workouts() {
   const fetchWorkouts = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`$getApiBaseUrl()/api/workouts`);
+      const response = await fetch(`${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/workouts`);
       if (!response.ok) throw new Error('Failed to fetch workouts');
       const data = await response.json();
       // Handle both array and paginated responses
@@ -33,12 +33,12 @@ export default function Workouts() {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`$getApiBaseUrl()/api/workouts`, {
+      const response = await fetch(`${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/workouts`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
