@@ -35,7 +35,7 @@ export default function Users() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`$-8000.app.github.dev/api/users`, {
+      const response = await fetch(`${getApiBaseUrl()}/api/users`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
