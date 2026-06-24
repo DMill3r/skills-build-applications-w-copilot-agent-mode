@@ -19,7 +19,7 @@ export default function Teams() {
   const fetchTeams = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${getApiBaseUrl()}/api/teams`);
+      const response = await fetch(`https://psychic-palm-tree-4qj55rjxqqw5f5qr9-8000.app.github.dev/api/teams`);
       if (!response.ok) throw new Error('Failed to fetch teams');
       const data = await response.json();
       // Handle both array and paginated responses
@@ -36,7 +36,7 @@ export default function Teams() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${getApiBaseUrl()}/api/teams`, {
+      const response = await fetch(`https://psychic-palm-tree-4qj55rjxqqw5f5qr9-8000.app.github.dev/api/teams`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

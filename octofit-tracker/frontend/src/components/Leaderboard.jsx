@@ -15,7 +15,7 @@ export default function Leaderboard() {
   const fetchLeaderboard = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${getApiBaseUrl()}/api/leaderboard?type=${type}`);
+      const response = await fetch(`https://psychic-palm-tree-4qj55rjxqqw5f5qr9-8000.app.github.dev/api/leaderboard?type=${type}`);
       if (!response.ok) throw new Error('Failed to fetch leaderboard');
       const data = await response.json();
       // Handle both array and paginated responses

@@ -21,7 +21,7 @@ export default function Activities() {
   const fetchActivities = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${getApiBaseUrl()}/api/activities`);
+      const response = await fetch(`https://psychic-palm-tree-4qj55rjxqqw5f5qr9-8000.app.github.dev/api/activities`);
       if (!response.ok) throw new Error('Failed to fetch activities');
       const data = await response.json();
       // Handle both array and paginated responses
@@ -38,7 +38,7 @@ export default function Activities() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${getApiBaseUrl()}/api/activities`, {
+      const response = await fetch(`https://psychic-palm-tree-4qj55rjxqqw5f5qr9-8000.app.github.dev/api/activities`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
