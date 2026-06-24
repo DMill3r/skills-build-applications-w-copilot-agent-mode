@@ -28,7 +28,9 @@ export default function Teams() {
       const response = await fetch(`${getApiBaseUrl()}/api/teams`);
       if (!response.ok) throw new Error('Failed to fetch teams');
       const data = await response.json();
-      setTeams(data);
+      // Handle both array and paginated responses
+      const teams = Array.isArray(data) ? data : (data.data || []);
+      setTeams(teams);
       setError(null);
     } catch (err) {
       setError(err.message);

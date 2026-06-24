@@ -30,7 +30,9 @@ export default function Activities() {
       const response = await fetch(`${getApiBaseUrl()}/api/activities`);
       if (!response.ok) throw new Error('Failed to fetch activities');
       const data = await response.json();
-      setActivities(data);
+      // Handle both array and paginated responses
+      const activities = Array.isArray(data) ? data : (data.data || []);
+      setActivities(activities);
       setError(null);
     } catch (err) {
       setError(err.message);

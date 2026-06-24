@@ -28,7 +28,9 @@ export default function Users() {
       const response = await fetch(`${getApiBaseUrl()}/api/users`);
       if (!response.ok) throw new Error('Failed to fetch users');
       const data = await response.json();
-      setUsers(data);
+      // Handle both array and paginated responses
+      const users = Array.isArray(data) ? data : (data.data || []);
+      setUsers(users);
       setError(null);
     } catch (err) {
       setError(err.message);

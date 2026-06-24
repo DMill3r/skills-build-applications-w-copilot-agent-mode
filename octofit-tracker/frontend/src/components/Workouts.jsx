@@ -30,7 +30,9 @@ export default function Workouts() {
       const response = await fetch(`${getApiBaseUrl()}/api/workouts`);
       if (!response.ok) throw new Error('Failed to fetch workouts');
       const data = await response.json();
-      setWorkouts(data);
+      // Handle both array and paginated responses
+      const workouts = Array.isArray(data) ? data : (data.data || []);
+      setWorkouts(workouts);
       setError(null);
     } catch (err) {
       setError(err.message);
