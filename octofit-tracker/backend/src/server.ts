@@ -1,40 +1,66 @@
 import express, { Express, Request, Response } from 'express';
-import mongoose from 'mongoose';
+import { connectDatabase } from './config/database';
+import { PORT, getBaseUrl } from './config/environment';
+import { errorHandler } from './middleware/errorHandler';
+import userRoutes from './routes/userRoutes';
+import activityRoutes from './routes/activityRoutes';
+import teamRoutes from './routes/teamRoutes';
+import leaderboardRoutes from './routes/leaderboardRoutes';
+import workoutRoutes from './routes/workoutRoutes';
 
 const app: Express = express();
-const PORT = 8000;
-const MONGODB_URI = 'mongodb://localhost:27017/octofit-tracker';
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// MongoDB Connection
-const connectDB = async () => {
+// CORS middleware
+app.use((req: Request, res: Response, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
+// Health check
+app.get('/api/health', (req: Request, res: Response) => {
+  res.json({
+    status: 'ok',
+    message: 'OctoFit Tracker API is running',
+    baseUrl: getBaseUrl(),
+  });
+});
+
+// API Routes
+app.use('/api/users', userRoutes);
+app.use('/api/activities', activityRoutes);
+app.use('/api/teams', teamRoutes);
+app.use('/api/leaderboard', leaderboardRoutes);
+app.use('/api/workouts', workoutRoutes);
+
+// 404 handler
+app.use((req: Request, res: Response) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
+// Error handler middleware (must be last)
+app.use(errorHandler);
+
+// Start Server
+const startServer = async () => {
   try {
-    await mongoose.connect(MONGODB_URI);
-    console.log('✓ MongoDB connected on port 27017');
+    await connectDatabase();
+    app.listen(PORT, () => {
+      console.log(`✓ Server running on ${getBaseUrl()}`);
+      console.log(`✓ API endpoints available at ${getBaseUrl()}/api/`);
+    });
   } catch (error) {
-    console.error('✗ MongoDB connection failed:', error);
+    console.error('Failed to start server:', error);
     process.exit(1);
   }
 };
 
-// Routes
-app.get('/api/health', (req: Request, res: Response) => {
-  res.json({ status: 'ok', message: 'OctoFit Tracker API is running' });
-});
-
-// Start Server
-const startServer = async () => {
-  await connectDB();
-  
-  app.listen(PORT, () => {
-    console.log(`✓ Server running on http://localhost:${PORT}`);
-  });
-};
-
-startServer().catch((error) => {
-  console.error('Failed to start server:', error);
-  process.exit(1);
-});
+startServer();
