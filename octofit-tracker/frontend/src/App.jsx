@@ -7,14 +7,7 @@ import Leaderboard from './components/Leaderboard'
 import Teams from './components/Teams'
 import Users from './components/Users'
 import Workouts from './components/Workouts'
-
-const getApiBaseUrl = () => {
-  const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
-  if (codespaceName && codespaceName.trim().length > 0) {
-    return `https://${codespaceName}-8000.app.github.dev`;
-  }
-  return 'http://localhost:8000';
-};
+import getApiBaseUrl from './utils/api'
 
 function App() {
   const [apiHealth, setApiHealth] = useState(null);
