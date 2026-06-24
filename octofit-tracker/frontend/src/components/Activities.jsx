@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getApiBaseUrl } from '../utils/api';
+import { formatDisplay } from '../utils/format';
 
 export default function Activities() {
   const [activities, setActivities] = useState([]);
@@ -155,12 +156,12 @@ export default function Activities() {
             <tbody>
               {activities.map((activity) => (
                 <tr key={activity._id}>
-                  <td>{activity._id}</td>
-                  <td>{activity.userId}</td>
-                  <td>{activity.type}</td>
-                  <td>{activity.duration}</td>
-                  <td>{activity.distance}</td>
-                  <td>{new Date(activity.date).toLocaleDateString()}</td>
+                  <td>{formatDisplay(activity._id)}</td>
+                  <td>{formatDisplay(activity.userId)}</td>
+                  <td>{formatDisplay(activity.type)}</td>
+                  <td>{formatDisplay(activity.duration)}</td>
+                  <td>{formatDisplay(activity.distance)}</td>
+                  <td>{formatDisplay(new Date(activity.date).toLocaleDateString())}</td>
                 </tr>
               ))}
             </tbody>

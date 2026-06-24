@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getApiBaseUrl } from '../utils/api';
+import { formatDisplay } from '../utils/format';
 
 export default function Workouts() {
   const [workouts, setWorkouts] = useState([]);
@@ -141,20 +142,20 @@ export default function Workouts() {
         <div className="alert alert-info">Loading workouts...</div>
       ) : (
         <div className="row">
-          {workouts.map((workout) => (
+            {workouts.map((workout) => (
             <div key={workout._id} className="col-md-6 mb-3">
               <div className="card">
                 <div className="card-body">
-                  <h5 className="card-title">{workout.name}</h5>
-                  <p className="card-text">{workout.description}</p>
+                  <h5 className="card-title">{formatDisplay(workout.name)}</h5>
+                  <p className="card-text">{formatDisplay(workout.description)}</p>
                   <div className="mb-2">
-                    <span className="badge bg-info me-2">{workout.type}</span>
-                    <span className="badge bg-secondary">{workout.difficulty}</span>
+                    <span className="badge bg-info me-2">{formatDisplay(workout.type)}</span>
+                    <span className="badge bg-secondary">{formatDisplay(workout.difficulty)}</span>
                   </div>
                   <p className="text-muted small">
-                    User: {workout.userId}
+                    User: {formatDisplay(workout.userId)}
                   </p>
-                  <small>Created: {new Date(workout.createdAt).toLocaleDateString()}</small>
+                  <small>Created: {formatDisplay(new Date(workout.createdAt).toLocaleDateString())}</small>
                 </div>
               </div>
             </div>

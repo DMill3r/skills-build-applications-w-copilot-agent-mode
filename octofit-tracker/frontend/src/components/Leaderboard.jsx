@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getApiBaseUrl } from '../utils/api';
+import { formatDisplay } from '../utils/format';
 
 export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
@@ -73,12 +74,12 @@ export default function Leaderboard() {
                   <td>
                     <strong>#{index + 1}</strong>
                   </td>
-                  <td>{entry.name || entry.userId}</td>
+                  <td>{formatDisplay(entry.name || entry.userId)}</td>
                   <td>
-                    <strong>{entry.points || 0}</strong>
+                    <strong>{formatDisplay(entry.points || 0)}</strong>
                   </td>
-                  <td>{entry.activitiesCount || 0}</td>
-                  <td>{(entry.totalDistance || 0).toFixed(1)}</td>
+                  <td>{formatDisplay(entry.activitiesCount || 0)}</td>
+                  <td>{formatDisplay(((entry.totalDistance || 0)).toFixed(1))}</td>
                 </tr>
               ))}
             </tbody>

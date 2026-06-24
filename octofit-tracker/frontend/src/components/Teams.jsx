@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getApiBaseUrl } from '../utils/api';
+import { formatDisplay } from '../utils/format';
 
 export default function Teams() {
   const [teams, setTeams] = useState([]);
@@ -104,16 +105,16 @@ export default function Teams() {
         <div className="alert alert-info">Loading teams...</div>
       ) : (
         <div className="row">
-          {teams.map((team) => (
+              {teams.map((team) => (
             <div key={team._id} className="col-md-6 mb-3">
               <div className="card">
                 <div className="card-body">
-                  <h5 className="card-title">{team.name}</h5>
-                  <p className="card-text">{team.description}</p>
+                  <h5 className="card-title">{formatDisplay(team.name)}</h5>
+                  <p className="card-text">{formatDisplay(team.description)}</p>
                   <p className="text-muted small">
-                    Captain: {team.captain} | Members: {team.members?.length || 0}
+                    Captain: {formatDisplay(team.captain)} | Members: {team.members?.length || 0}
                   </p>
-                  <small>Created: {new Date(team.createdAt).toLocaleDateString()}</small>
+                  <small>Created: {formatDisplay(new Date(team.createdAt).toLocaleDateString())}</small>
                 </div>
               </div>
             </div>
