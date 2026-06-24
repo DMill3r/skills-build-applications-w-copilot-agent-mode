@@ -38,7 +38,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 app.get('/api/env', (req: Request, res: Response) => {
   res.json({
     environment: NODE_ENV,
-    codespaceName: process.env.CODESPACE_NAME || null,
+    codespaceName: process.env.CODESPACE_NAME || process.env.GITHUB_CODESPACE_NAME || null,
     apiPort: Number(PORT),
     baseUrl: getBaseUrl(),
   });
