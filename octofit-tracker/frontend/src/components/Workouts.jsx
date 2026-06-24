@@ -38,7 +38,7 @@ export default function Workouts() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`getApiBaseUrl-8000.app.github.dev/api/workouts`, {
+      const response = await fetch(`$getApiBaseUrl-8000.app.github.dev/api/workouts`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
