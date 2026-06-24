@@ -18,7 +18,7 @@ export default function Users() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${getApiBaseUrl(-8000.app.github.dev)}/api/users`);
+      const response = await fetch(`${getApiBaseUrl(-8000)}/api/users`);
       if (!response.ok) throw new Error('Failed to fetch users');
       const data = await response.json();
       // Handle both array and paginated responses
@@ -35,7 +35,7 @@ export default function Users() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${getApiBaseUrl(-8000.app.github.dev)}/api/users`, {
+      const response = await fetch(`${getApiBaseUrl(-8000)}/api/users`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
